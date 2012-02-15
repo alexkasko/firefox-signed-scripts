@@ -22,13 +22,13 @@ No, this is not a joke, this security stuff was written over a decade ago for Ne
  * Simple Workaround
 
 Signing full pages is near impossible with today's web frameworks. So workaround is to sign one special page with all privileged code, and load it into invisible IFRAME. Then use it from JS as you need.
-You can see example in priviligedframe/privileged.html. Parent (unsigned) page's example is in parent.html. Nothing really new here, but openssl and NSS-utils examples might be helpful.
+You can see example in privilegedframe/privileged.html. Parent (unsigned) page's example is in parent.html. Nothing really new here, but openssl and NSS-utils examples might be helpful.
 
  * Signing page
 
  -  Note: some PKI (public key infrastructure) and crypto knowledge is required to read futher.
 
- For all this to work priviligedframe directory must by signed by code signing certificate, zipped and renamed to .jar. It sound more simple that it is.
+ For all this to work privilegedframe directory must by signed by code signing certificate, zipped and renamed to .jar. It sound more simple that it is.
  You need to get code signing certificate. For intranet applications you may (as usual) use your own (your company's, openssl generated, etc) CA.
  NSS (crypto library behind Firefox) has heavy restrictions for code signing certificates - http://www.mozilla.org/projects/security/pki/nss/tech-notes/tn3.html 
  To generate one NSS compatible you may use codesign.cnf from this project. If you have openssl-generated CA then you can generate code signing cert like this:
@@ -40,7 +40,7 @@ openssl ca -policy policy_anything -config codesign.cnf -out newcert.pem -infile
 # convert results int #PKCS12 format
 openssl pkcs12 -export -in newcert.pem -inkey newkey.pem -out codesign.p12 -name code_signing -caname your_ca_alias -chain -CAfile ./demoCA/cacert.pem 
 
-Now you have codesign.p12 certificate. To sign priviligedframe directory you should use NSS utils: pk12util, certutil and signtool.
+Now you have codesign.p12 certificate. To sign privilegedframe directory you should use NSS utils: pk12util, certutil and signtool.
 
 mkdir certdb
 # create certificate db
@@ -55,11 +55,11 @@ certutil -L -d certdb -n "alias"
 certutil -d certdb -M -t "TC,C,C" -n "ca_calias"
 # list certificates, that can be used by signtool
 signtool -l -d certdb
-# sign priviligedframe directory (it may contain HTML, JS etc)
-signtool -d certdb -k "alias" -p password -Z priviligedframe.jar priviligedframe
+# sign privilegedframe directory (it may contain HTML, JS etc)
+signtool -d certdb -k "alias" -p password -Z privilegedframe.jar privilegedframe
 
 The work is done, some additional notes:
- - priviligedframe.jar, must be served with Content-Type=application/java-archive or application/x-jar.
+ - privilegedframe.jar, must be served with Content-Type=application/java-archive or application/x-jar.
  - user must have CA certificate installed in Firefox with trust option "This certificate can identificate software makers" enabled.
  - if you reject one of Firefox' security questions, the ony way to reenable it may be to delete Firerfox profile completely.
 
