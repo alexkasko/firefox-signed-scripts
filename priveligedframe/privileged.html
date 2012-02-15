@@ -1,0 +1,32 @@
+<!-- This page is intended to load into hidden iframe, and execute onload script:
+    read data from parent page, do stuff it, and return result to parent page.
+    Such unnatural method caused by strange firefox requirements to signed scripts:
+    http://www.mozilla.org/projects/security/components/signed-scripts.html 
+    Required parent page fields:
+     - inputCallback - parent page's callback to get data from 
+     - outputCallback - parent page's callback to put result to
+ -->
+<html>
+    <head>
+        <script type="text/javascript">
+function doStuff() {
+    try {
+        // request privilege
+        netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect')
+        // get data from parent page
+        var data = parent.inputCallback()
+        // access addon
+        var myComponent = Components.classes['@you_addon_iface_path'].createInstance(Components.interfaces.IYourAddon)
+        // call addon
+        var result = myComponent.doSomething(data)
+        // send result back to parent page
+        parent.outputCallback(result)
+    } catch (anError) {
+        alert(anError)
+    }
+}
+        </script>
+    </head>
+    <body onload="signText()">
+    </body>
+</html>

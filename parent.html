@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"> 
+<html>
+<head>
+    <script type="text/javascript">
+function inputCallback() {
+    var data = document.getElementById("dataField").value
+    return data
+}
+
+function outputCallback(result) {
+    alert(result)
+}
+
+function accessAddon() {
+    try {
+        var container = document.getElementById("hiddenDiv")
+        var frame = document.createElement("iframe")
+        var prefix = "jar:https://"
+        var postfix = "/privilegedframe.jar!/privileged.html"
+        var url = prefix + document.location.host + postfix
+        frame.src = url
+        container.appendChild(frame)
+    } catch (ex) {
+        alert(ex.message)  
+    }
+}
+    </script>
+</head>
+    <body>
+        <div id="hiddenDiv" style="display:none"></div>
+        <input id="dataField" type="text">
+        <button onclick="accessAddon()"> Click Me</button>
+    </body>
+</html>
