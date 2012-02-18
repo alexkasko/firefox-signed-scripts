@@ -1,9 +1,9 @@
 ﻿Signed Scripts In Firefox
 =========================
 
-__Given__: you have a web application
-__Task__: allow users to do something from browser, that cannot be implemented in pure JS. For example sign message with digital signature with certificate from e-Token hardware device.
-__Solution__: write Firefox addon to do stuff and call it from the JS script.
+ * Given: you have a web application
+ * Task: allow users to do something from browser, that cannot be implemented in pure JS. For example sign message with digital signature with certificate from e-Token hardware device.
+ * Solution: write Firefox addon to do stuff and call it from the JS script.
 
 But things are not so simple with Firefox Addons.
 
