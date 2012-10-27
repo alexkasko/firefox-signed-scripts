@@ -162,4 +162,3 @@ authorityKeyIdentifier=keyid,issuer
 
 keyUsage = critical, digitalSignature
 extendedKeyUsage = critical, codeSigning
-
