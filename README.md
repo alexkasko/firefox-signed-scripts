@@ -73,4 +73,4 @@ The work is done, some additional notes:
 
 License information
 -------------------
-You can use any code from this project under terms of [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+You may use any code from this project under terms of [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
